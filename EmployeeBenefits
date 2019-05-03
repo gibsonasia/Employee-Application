@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace EmployeeApp
+{
+    class EmployeeBenefits
+    {
+        private const decimal fedTax = 0.18m;
+        private const decimal socialSecurity = 0.06m;
+        private const decimal commission = 0.07m;
+        private const decimal retirement = 0.1m;
+
+        private decimal payBeforeTaxes;
+        private decimal commissionTakeHome;
+
+
+        public EmployeeBenefits()
+        {
+
+        }
+        public EmployeeBenefits(decimal pay)
+        {
+            payBeforeTaxes = pay;
+        }
+
+        public decimal Paybeforetaxes
+        {
+            get
+            {
+                return payBeforeTaxes;
+            }
+
+            set
+            {
+                payBeforeTaxes = value;
+            }
+        }
+
+        public decimal CalcCommissionIncome()
+        {
+            commissionTakeHome = (payBeforeTaxes * commission);
+
+            return commissionTakeHome;
+        }
+
+        public decimal CalcFedTaxes()
+        {
+            return  commissionTakeHome * fedTax;
+        }
+
+        public decimal CalSocialS()
+        {
+            return (commissionTakeHome * socialSecurity);
+        }
+
+        public decimal CalcRetirement()
+        {
+            return (commissionTakeHome * retirement);
+        }
+
+        public decimal CalcTakeHome()
+        {
+            return (((CalcCommissionIncome() - CalcFedTaxes()) - CalSocialS()) - CalcRetirement()) ;
+        }
+
+        public override string ToString()
+        {
+            return "Your take home pay is: " + CalcTakeHome().ToString("c");
+        }
+
+
+    }
+}
